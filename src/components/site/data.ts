@@ -6,7 +6,7 @@ export const EMAIL = "thiago@sigabr.com.br";
 export const ADDRESS =
   "Rua Silvestre Vasconcelos Calmon, 44 A — Vila Pedro Moreira, Guarulhos/SP";
 
-export const NAV: { to: string; label: string }[] = [
+export const NAV = [
   { to: "/", label: "Início" },
   { to: "/sobre", label: "A Empresa" },
   { to: "/servicos", label: "Serviços" },
@@ -15,7 +15,7 @@ export const NAV: { to: string; label: string }[] = [
   { to: "/seguranca", label: "Segurança" },
   { to: "/perguntas-frequentes", label: "Dúvidas" },
   { to: "/contato", label: "Contato" },
-];
+] as const;
 
 export const SERVICES = [
   {
