@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as ServicosIndexRouteImport } from './routes/servicos.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,40 @@ const SobreRoute = SobreRouteImport.update({
   path: '/sobre',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicosIndexRoute = ServicosIndexRouteImport.update({
+  id: '/servicos/',
+  path: '/servicos/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sobre': typeof SobreRoute
+  '/servicos/': typeof ServicosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sobre': typeof SobreRoute
+  '/servicos': typeof ServicosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/sobre': typeof SobreRoute
+  '/servicos/': typeof ServicosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sobre'
+  fullPaths: '/' | '/sobre' | '/servicos/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sobre'
-  id: '__root__' | '/' | '/sobre'
+  to: '/' | '/sobre' | '/servicos'
+  id: '__root__' | '/' | '/sobre' | '/servicos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SobreRoute: typeof SobreRoute
+  ServicosIndexRoute: typeof ServicosIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SobreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/servicos/': {
+      id: '/servicos/'
+      path: '/servicos'
+      fullPath: '/servicos/'
+      preLoaderRoute: typeof ServicosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SobreRoute: SobreRoute,
+  ServicosIndexRoute: ServicosIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
