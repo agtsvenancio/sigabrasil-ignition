@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as ServicosIndexRouteImport } from './routes/servicos.index'
+import { Route as ServicosTransporteRodoviarioRouteImport } from './routes/servicos.transporte-rodoviario'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,34 +29,49 @@ const ServicosIndexRoute = ServicosIndexRouteImport.update({
   path: '/servicos/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicosTransporteRodoviarioRoute =
+  ServicosTransporteRodoviarioRouteImport.update({
+    id: '/servicos/transporte-rodoviario',
+    path: '/servicos/transporte-rodoviario',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sobre': typeof SobreRoute
+  '/servicos/transporte-rodoviario': typeof ServicosTransporteRodoviarioRoute
   '/servicos/': typeof ServicosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sobre': typeof SobreRoute
+  '/servicos/transporte-rodoviario': typeof ServicosTransporteRodoviarioRoute
   '/servicos': typeof ServicosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/sobre': typeof SobreRoute
+  '/servicos/transporte-rodoviario': typeof ServicosTransporteRodoviarioRoute
   '/servicos/': typeof ServicosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sobre' | '/servicos/'
+  fullPaths: '/' | '/sobre' | '/servicos/transporte-rodoviario' | '/servicos/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sobre' | '/servicos'
-  id: '__root__' | '/' | '/sobre' | '/servicos/'
+  to: '/' | '/sobre' | '/servicos/transporte-rodoviario' | '/servicos'
+  id:
+    | '__root__'
+    | '/'
+    | '/sobre'
+    | '/servicos/transporte-rodoviario'
+    | '/servicos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SobreRoute: typeof SobreRoute
+  ServicosTransporteRodoviarioRoute: typeof ServicosTransporteRodoviarioRoute
   ServicosIndexRoute: typeof ServicosIndexRoute
 }
 
@@ -82,12 +98,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicosIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/servicos/transporte-rodoviario': {
+      id: '/servicos/transporte-rodoviario'
+      path: '/servicos/transporte-rodoviario'
+      fullPath: '/servicos/transporte-rodoviario'
+      preLoaderRoute: typeof ServicosTransporteRodoviarioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SobreRoute: SobreRoute,
+  ServicosTransporteRodoviarioRoute: ServicosTransporteRodoviarioRoute,
   ServicosIndexRoute: ServicosIndexRoute,
 }
 export const routeTree = rootRouteImport
